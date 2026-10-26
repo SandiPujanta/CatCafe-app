@@ -1,63 +1,50 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import MenuItem from './MenuItem';
+import OrderSummary from './OrderSummary';
 
-const data_menu = [{
-    id: 1,
-    name: 'Kopi Kucing',
-    harga: 25000
-}, {
-    id: 2,
-    name: 'Teh Meong',
-    harga: 15000
-}, {
-    id: 3,
-    name: 'Juice Oyen',
-    harga: 20000
-}];
+const DAFTAR_MENU = [
+  { id: '1', nama: 'Kopi Susu Catnip', harga: 20000 },
+  { id: '2', nama: 'Matcha Paw Latte', harga: 25000 },
+  { id: '3', nama: 'Croissant Ikan Tuna', harga: 18000 },
+];
 
-const App = () => {
-    const [menu, setMenu] = useState(0);
-    
-    return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Menu Minuman</Text>
-            {data_menu.map((item) => (
-                <View key={item.id} style={styles.menuItem}>
-                    <Text style={styles.menuName}>{item.name}</Text>
-                    <Text style={styles.menuPrice}>Rp {item.harga}</Text>
-                </View>
-            ))}
-        </View>
-    );
-};
+export default function App() {
+  const [totalPesanan, setTotalPesanan] = useState(0);
 
+  const handleTambahPesanan = () => {
+    setTotalPesanan(prevTotal => prevTotal + 1);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.headerTitle}>Kafe Kucing</Text>
+      <OrderSummary totalCount={totalPesanan} />
+      <ScrollView>
+        {DAFTAR_MENU.map((item) => (
+          <MenuItem 
+            key={item.id} 
+            nama={item.nama} 
+            harga={item.harga} 
+            onTambahPesanan={handleTambahPesanan} 
+          />
+        ))}
+      </ScrollView>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 20,
-    },
-    menuItem: { 
-        backgroundColor: '#fff',
-        padding: 10,
-        margin: 10,
-        borderRadius: 5,
-    },
-    menuName: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    menuPrice: {
-        fontSize: 16,
-        color: '#888',
-    },
+  container: { 
+    flex: 1, 
+    padding: 20, 
+    backgroundColor: '#fafafa', 
+    paddingTop: 50 
+},
+  headerTitle: { 
+    fontSize: 24, 
+    fontWeight: 'bold', 
+    marginBottom: 20, 
+    textAlign: 'center' 
+}
 });
-
-export default App;
