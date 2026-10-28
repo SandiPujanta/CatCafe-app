@@ -7,7 +7,7 @@ const OrderSummary = ({ totalCount }) => {
       <Text style={styles.text}>Total Item Dipesan: {totalCount}</Text>
       
       {totalCount >= 5 && (
-        <Text style={styles.promo}>Selamat! Anda Mendapatkan Diskon 10%</Text>
+        <Text style={styles.promo}> 🎉 Selamat! Anda Mendapatkan Diskon 10%</Text>
       )}
     </View>
   );
